@@ -30,5 +30,15 @@ private @NonNull String email;
 private @NonNull String fullName;
 @ApiModelProperty(notes = "The employee email id")
 private @NonNull String managerEmail;
+@ApiModelProperty(notes = "The employee salary")
+private @NonNull Double salary;
+@ApiModelProperty(notes = "The employee role")
+private @NonNull String role;
+@ApiModelProperty(notes = "The employee address")
+private @NonNull String address;
+@ApiModelProperty(notes = "The employee office")
+private @NonNull String office;
+@ApiModelProperty(notes = "The employee dependency")
+private @NonNull String dependency;
 }
 

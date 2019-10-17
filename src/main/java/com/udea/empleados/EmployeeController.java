@@ -64,6 +64,36 @@ public class EmployeeController {
     })
     @RequestMapping(method = RequestMethod.GET, value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Employee> empleados() {
-        return employeeRepository.findAll();
+                return employeeRepository.findAll();
     }
+    
+    @ApiOperation(value = "Update an employee by Id")
+    @RequestMapping(method = RequestMethod.PUT, value = "/{employeeId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Employee update(@ApiParam(value = "Employee id from which employee object will retrieve",
+            required = true) @PathVariable String employeeId, 
+            @ApiParam(value = "Employee object store in database table", required = true) 
+            @RequestBody Employee employee) {
+        Optional<Employee> e = employeeRepository.findById(employeeId);
+        if(e.isPresent()){
+            Employee currentEmployee = e.get();
+            currentEmployee.setAddress(employee.getAddress());
+            currentEmployee.setDependency(employee.getDependency());
+            currentEmployee.setEmail(employee.getEmail());
+            currentEmployee.setFullName(employee.getFullName());
+            currentEmployee.setManagerEmail(employee.getManagerEmail());
+            currentEmployee.setOffice(employee.getOffice());
+            currentEmployee.setRole(employee.getRole());
+            currentEmployee.setSalary(employee.getSalary());
+            return employeeRepository.save(currentEmployee);
+        }
+        return null;
+    }
+    
+    @ApiOperation(value = "Delete an employee")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{employeeId}")
+    public void delete(@ApiParam(value = "Employee id store in database table", required = true) 
+    @PathVariable String employeeId) {        
+        employeeRepository.deleteById(employeeId);
+    }
+    
 }
